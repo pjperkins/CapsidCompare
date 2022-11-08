@@ -22,34 +22,33 @@ shinyServer(function(input, output) {
       tab <- read.table(fil$datapath, header = T)
       rownames(tab) <- tab[,1]
       tab <- tab[,-1]
-      selectInput('comp_tissue_selector', 'Choose Tissue of Interest', colnames(tab), selected = colnames(tab), multiple = TRUE)
+      selectInput('comp_tissue_selector', 'Choose Tissue/Sample of Interest', colnames(tab), selected = colnames(tab), multiple = TRUE)
     })})
   
   get_seqs <- eventReactive(input$file_process, {
-    fil <- input$SeqFile
+    fil <- input$comp_dataset
     tab <- read.table(fil$datapath, header = T)
-    tab <- as.character(tab[,1])
+    rownames(tab) <- tab[,1]
+    tab <- tab[,-1]
     return(tab)
   })
   
   output$summary_table2 <- renderReactable({
     tab <- get_seqs()
-    df <- data.frame(table(tab))
-    df$Length <- nchar(as.character(df$tab))
-    colnames(df) <- c('Sequence', 'Frequency', 'Length')
+    df <- data.frame(tab)
     reactable(df)
     
   })
   output$summary_table1 <- renderDataTable({
     tab <- get_seqs()
-    num <- length(tab)
-    uni <- length(unique(tab))
-    minchar <- min(nchar(as.character(df$tab)))
-    maxchar <- max(nchar(as.character(df$tab)))
-    medchar <- median(nchar(as.character(df$tab)))
-    sumtab <- data.frame(num, uni, minchar, medchar, maxchar)
+    num <- nrow(tab)
+    colz <- ncol(tab)
+    minchar <- min(nchar(as.character(rownames(tab))))
+    maxchar <- max(nchar(as.character(rownames(tab))))
+    medchar <- median(nchar(as.character(rownames(tab))))
+    sumtab <- data.frame(num, colz, minchar, medchar, maxchar)
     
-    colnames(sumtab) <- c('Number of Sequences', 'Number of Unique Sequences', 'Minimum Length', 'Median Length', 'Maxumum Length')
+    colnames(sumtab) <- c('Number of Sequences', 'Number of Tissues/Samples', 'Minimum Length', 'Median Length', 'Maxumum Length')
     print(sumtab)
     
   })

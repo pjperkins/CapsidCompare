@@ -17,7 +17,7 @@ shinyUI(navbarPage(inverse = T,"CapsidCompare",
                               sidebarPanel(
                                 #actionButton("go", "Go"),
                                 #numericInput("n", "n", 50),
-                                fileInput( "SeqFile", "Please Choose Sequence text file", multiple = T),
+                                fileInput( "comp_dataset", "Please Choose a Dataset", multiple = T),
                                 #fileInput( "RPFfile", "Please Choose Footprinting BAM Files", multiple = T),
                                 #fileInput( "ANNOfile", "Please Choose Annotation GFF3 File", multiple = T),
                                 #fileInput( "FASTAfile", "Choose FASTA File (Optional)", multiple = T),
@@ -29,19 +29,14 @@ shinyUI(navbarPage(inverse = T,"CapsidCompare",
                                 #submitButton("Submit")
                               ),
                               mainPanel(
-                                h3("Facilitating comprehensive analysis of sequences", align = "center"),
+                                h3("Facilitating comprehensive Comparison of AAV Capsids", align = "center"),
                                 br(),
-                                span("Welcome to ", strong("SequenceSuite") , ", a suite of tools for sequence comparison, analysis, and visualizationg"),
-                                p("Get started by uploading a txt file of sequences (one sequence per row) and hitting ", span("Preprocess.", style = "color:blue")),
+                                span("Welcome to ", strong("CapsidCompare") , ", a suite of tools for comparing AAV Capsid amino acid sequences."),
+                                p("Get started by uploading a file of combined AAV sequences from multiple tissues or samples  and hitting ", span("Preprocess.", style = "color:blue")),
                                 p("Once you recieve conifrmation below that your file has been successfully uploaded and processed, you can utilize the analysis tools listed in the toolbar above."),
                                 dataTableOutput(outputId = 'summary_table1'),
+                                hr(), 
                                 reactableOutput(outputId = 'summary_table2')
-                                #hr(),
-                                #textOutput("upload"),
-                                #textOutput("process"),
-                                #textOutput("cheat"),
-                                #plotOutput("plot"),
-                                #dataTableOutput(outputId = "starter")
                                 
                                 
                               )
@@ -50,8 +45,8 @@ shinyUI(navbarPage(inverse = T,"CapsidCompare",
                   tabPanel("Sample Comparison", #Start page for welcome message, uploading files, and data preprocessing
                             sidebarLayout(
                               sidebarPanel(
-                                fileInput("comp_dataset", "Choose a dataset:"),
-                                selectInput("comp_type", "Comparison Type", choices = list('Rank' = 1, "Frequency" = 2), selected = 1),
+                                #fileInput("comp_dataset", "Choose a dataset:"),
+                                #selectInput("comp_type", "Comparison Type", choices = list('Rank' = 1, "Frequency" = 2), selected = 1),
                                 sliderInput("comp_num", "Top N Sequences", min = 1, max = 100, value = 20),
                                 uiOutput('comp_tissue'),
                                 actionButton("comp_button", "Apply Changes")
