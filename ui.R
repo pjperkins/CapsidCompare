@@ -11,13 +11,13 @@ library(shiny)
 
 options(shiny.maxRequestSize=30*1024^2)
 
-shinyUI(navbarPage(inverse = T,"SequenceSuite",
+shinyUI(navbarPage(inverse = T,"CapsidCompare",
                    tabPanel("File Processing", #Start page for welcome message, uploading files, and data preprocessing
                             sidebarLayout(
                               sidebarPanel(
                                 #actionButton("go", "Go"),
                                 #numericInput("n", "n", 50),
-                                fileInput( "SeqFile", "Please Choose Sequenc text file", multiple = T),
+                                fileInput( "SeqFile", "Please Choose Sequence text file", multiple = T),
                                 #fileInput( "RPFfile", "Please Choose Footprinting BAM Files", multiple = T),
                                 #fileInput( "ANNOfile", "Please Choose Annotation GFF3 File", multiple = T),
                                 #fileInput( "FASTAfile", "Choose FASTA File (Optional)", multiple = T),
@@ -47,85 +47,7 @@ shinyUI(navbarPage(inverse = T,"SequenceSuite",
                               )
                             )
                    ),
-                  tabPanel("Sequence Diversity", #Start page for welcome message, uploading files, and data preprocessing
-                            sidebarLayout(
-                              sidebarPanel(
-                                #actionButton("go", "Go"),
-                                #numericInput("n", "n", 50),
-                                fileInput( "RNAfile", "Please Choose Your Text File of Sequences", multiple = T),
-                                #fileInput( "RPFfile", "Please Choose Footprinting BAM Files", multiple = T),
-                                #fileInput( "ANNOfile", "Please Choose Annotation GFF3 File", multiple = T),
-                                #fileInput( "FASTAfile", "Choose FASTA File (Optional)", multiple = T),
-                                #fileInput( "TESTfile1", "Choose Reference RNA File (Optional)", multiple = T),
-                                #fileInput( "TESTfile2", "Choose Reference RPF File (Optional)", multiple = T),
-                                #checkboxInput("prepro", "Preprocess")
-                                actionButton("prepro", "Preprocess",icon("paper-plane"), 
-                                             style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
-                                #submitButton("Submit")
-                              ),
-                              mainPanel(
-                                tabsetPanel(
-                                  tabPanel("Diversity Metrics"),
-                                  tabPanel("Bubble Plot"),
-                                  tabPanel("Tile Plot")
-                                  
-                                )
-                                
-                                
-                              )
-                            )
-                   ),
-                   tabPanel("Sequence Similarity", #Start page for welcome message, uploading files, and data preprocessing
-                            sidebarLayout(
-                              sidebarPanel(
-                                #actionButton("go", "Go"),
-                                #numericInput("n", "n", 50),
-                                fileInput( "RNAfile", "Please Choose Your RNA-seq BAM Files", multiple = T),
-                                #fileInput( "RPFfile", "Please Choose Footprinting BAM Files", multiple = T),
-                                #fileInput( "ANNOfile", "Please Choose Annotation GFF3 File", multiple = T),
-                                #fileInput( "FASTAfile", "Choose FASTA File (Optional)", multiple = T),
-                                #fileInput( "TESTfile1", "Choose Reference RNA File (Optional)", multiple = T),
-                                #fileInput( "TESTfile2", "Choose Reference RPF File (Optional)", multiple = T),
-                                #checkboxInput("prepro", "Preprocess")
-                                actionButton("prepro", "Preprocess",icon("paper-plane"), 
-                                             style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
-                                #submitButton("Submit")
-                              ),
-                              mainPanel(
-                                tabsetPanel(
-                                  tabPanel("Sequence Dendograms"),
-                                  tabPanel("Similarity Heatmap")
-                                  
-                                )
-                                
-                              )
-                            )
-                   ),
-                   
-                   tabPanel("Pattern Analysis", #Start page for welcome message, uploading files, and data preprocessing
-                            sidebarLayout(
-                              sidebarPanel(
-                                sliderInput("comp_num", "Top N Sequences", min = 1, max = 100, value = 20),
-                                uiOutput('comp_tissue'),
-                                actionButton("comp_button", "Apply Changes")
-                                
-                              ),
-                              mainPanel(
-                                tabsetPanel(
-                                  tabPanel("Heatmap",
-                                           plotOutput("cross_heatmap", height = 800)),
-                                  tabPanel("Line Plot",
-                                           plotOutput("cross_lineplot", height = 800)),
-                                  tabPanel("Barplot",
-                                           plotOutput("cross_barplot", height = 800))
-                                  
-                                )
-                                
-                                
-                              )
-                            )
-                   ),
-                   tabPanel("Sample Comparison", #Start page for welcome message, uploading files, and data preprocessing
+                  tabPanel("Sample Comparison", #Start page for welcome message, uploading files, and data preprocessing
                             sidebarLayout(
                               sidebarPanel(
                                 fileInput("comp_dataset", "Choose a dataset:"),
